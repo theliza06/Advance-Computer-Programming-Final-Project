@@ -72,6 +72,12 @@ satisfaction, promoting better health outcomes. Minimizes missed appointments, e
 ### Step 4: Run the Python Code
   * Open the terminal in VS Code. Observe the output in the terminal to ensure the program runs successfully. If the program interacts with the database, check the database in DB Browser to see if the data has been updated as expected.
 
+### Step 5: Execute the system
+ * Choose a secretary in the view users and put the password, fill up all the information and add the appointment, click the view display to view the appointments and for the view appointment button it is the appointment of all doctor has the appointments. Next is see in the DB Browser SQLite that has the appointment_db.db to see if the add appointment that we add is will be adding also in sqlite.
+
+### Step 6: Error in images
+ * If theres an error because of the images, copy it and paste to the placeholder.
+
 
 
 

@@ -508,7 +508,7 @@ class SecretaryApp:
             with sqlite3.connect('appointment_db.db') as conn:
                 cursor = conn.cursor()
 
-                
+            
                 # Check for conflicts with date and time
                 cursor.execute("""
                     SELECT * FROM tb_patients WHERE appointment_no = ? AND date_cal = ? AND time_schedule = ?
@@ -519,6 +519,16 @@ class SecretaryApp:
                         f"An appointment with number {self.val1} is already scheduled on {self.val7} at {self.val8}."
                     )
                     return
+
+                 # Check if the appointment number exists with a different date or time
+                cursor.execute("""
+                    SELECT * FROM tb_patients WHERE appointment_no = ? AND (date_cal != ? OR time_schedule != ?)
+                """, (self.val1, self.val7, self.val8))
+                if cursor.fetchone():
+                    tkinter.messagebox.showinfo(
+                        "Info",
+                        f"Adding a new appointment for the same appointment number {self.val1} but with a different date and time."
+                    )
 
                 # Insert appointment under the logged-in specialization
                 sql_patient = """
@@ -560,7 +570,7 @@ class SecretaryApp:
             connection = sqlite3.connect('appointment_db.db')
             cursor = connection.cursor()
             cursor.execute("""
-                SELECT p.appointment_no, p.name, p.age, p.gender, p.location, p.phone_num, 
+                SELECT DISTINCT p.appointment_no, p.name, p.age, p.gender, p.location, p.phone_num, 
                     p.date_cal, p.time_schedule, a.doctor_name
                 FROM tb_patients p
                 JOIN tb_appointments a ON p.appointment_no = a.patient_no
